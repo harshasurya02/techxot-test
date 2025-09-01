@@ -1,0 +1,5 @@
+[
+  { "id": "tp-payments", "name": "Payments", "slug": "payments" },
+  { "id": "tp-risk", "name": "Risk", "slug": "risk" },
+  { "id": "tp-security", "name": "Security", "slug": "security" }
+]

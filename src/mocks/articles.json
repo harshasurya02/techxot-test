@@ -1,0 +1,44 @@
+[
+  {
+    "id": "art-001",
+    "slug": "real-time-payments-2025-outlook",
+    "title": "Real-Time Payments: 2025 Outlook",
+    "excerpt": "What RTP growth means for merchants across AU/US/EU.",
+    "body": "<p>Real-time payments (RTP) adoption is accelerating...</p>",
+    "heroImage": "/images/rtp-hero.jpg",
+    "authorId": "auth-anna",
+    "topicIds": ["tp-payments", "tp-risk"],
+    "publishedAt": "2025-07-19T09:00:00Z",
+    "readingMinutes": 6,
+    "cta": {
+      "type": "subscribe",
+      "label": "Never miss an insight",
+      "target": "/subscribe"
+    },
+    "seo": {
+      "title": "Real-Time Payments 2025 Outlook | Uptick by Global Payments",
+      "description": "A practical guide for product and payments leaders on RTP expansion."
+    }
+  },
+  {
+    "id": "art-002",
+    "slug": "chargeback-rates-drop-with-tokenization",
+    "title": "Chargeback Rates Drop with Tokenization",
+    "excerpt": "New data suggests 18–27% reduction in fraud-related chargebacks.",
+    "body": "<p>Tokenization can reduce risk by abstracting PANs...</p>",
+    "heroImage": "/images/tokenization.jpg",
+    "authorId": "auth-sanjay",
+    "topicIds": ["tp-risk", "tp-security"],
+    "publishedAt": "2025-08-02T10:30:00Z",
+    "readingMinutes": 5,
+    "cta": {
+      "type": "internalLink",
+      "label": "Explore Payments Security",
+      "target": "/topics/security"
+    },
+    "seo": {
+      "title": "Chargebacks & Tokenization | Uptick",
+      "description": "How tokenization helps merchants reduce chargeback exposure."
+    }
+  }
+]

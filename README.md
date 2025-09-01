@@ -1,36 +1,204 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Techxot Interview – BFF Technical Task
 
-## Getting Started
+This project implements a **Backend-for-Frontend (BFF)** for a payments company (Articles).  
+It provides clean API routes backed by mock data, a minimal UI to render articles, and follows the given interview task requirements.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📌 Scenario & Goals
+
+- Build a small **BFF** so the frontend can consume a single, consistent API.
+- Since real backends are unavailable, **mock data** is used.
+- Implement clean BFF routes, simple caching, and a tiny UI.
+- UI should render:
+  - Article detail page by ID
+  - (Optionally) a list view with filters
+
+---
+
+## 🚀 Tech Stack
+
+- **Next.js 14+ (App Router)**
+- **TypeScript**
+- **TailwindCSS** (styling, no hardcoded hexes)
+- **Zod** (schema validation)
+- **sanitize-html** (safe rendering of article body)
+- (Optional) **Storybook** for UI components
+
+---
+
+## 📂 Project Structure
+
+```
+/app
+  /api
+    /articles/route.ts            # GET /api/articles
+    /articles/[id]/route.ts       # GET /api/articles/:id
+    /authors/route.ts             # GET /api/authors
+    /topics/route.ts              # GET /api/topics
+    /search/route.ts              # GET /api/search?q=...
+    /seo/articles/[id]/route.ts   # GET /api/seo/articles/:id
+  /uptick
+    /page.tsx                     # Article list page (filters, pagination)
+    /article/[id]/page.tsx        # Article detail page (server component)
+/components
+  ArticleCard.tsx
+  ArticleByline.tsx
+  Filters.tsx
+/lib
+  /bff
+    articles.ts
+    authors.ts
+    topics.ts
+  /models/article.ts
+/mocks
+  articles.json
+  authors.json
+  topics.json
+/styles
+  globals.css
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔑 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### API Endpoints
 
-## Learn More
+- **GET /api/articles**  
+  Supports:
 
-To learn more about Next.js, take a look at the following resources:
+  - `topic` → filter by topic id
+  - `q` → search title/excerpt/seo.description
+  - `limit` (default 10)
+  - `offset` (default 0)
+  - `sort` (`publishedAt_desc` default, or `publishedAt_asc`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **GET /api/articles/:id**  
+  Returns full article, with expanded author + topics.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **GET /api/authors**  
+  Returns all authors.
 
-## Deploy on Vercel
+- **GET /api/topics**  
+  Returns all topics.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **GET /api/search?q=...**  
+  Searches in `title`, `excerpt`, `seo.description`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **GET /api/seo/articles/:id**  
+  Returns SEO metadata (`title`, `description`, `openGraph`).
+
+---
+
+### API Error Shape
+
+```json
+{
+  "error": { "code": "BadRequest", "message": "Invalid query param: limit" }
+}
+```
+
+---
+
+### UI
+
+- **List page** (`/uptick`)
+
+  - Server component fetches `/api/articles`
+  - Filters (client component):
+    - Topic dropdown → updates instantly
+    - Search input → debounced (500ms)
+  - Pagination (server links)
+
+- **Detail page** (`/uptick/article/[id]`)
+  - Fetches from `/api/articles/:id`
+  - Renders:
+    - Title
+    - Hero image (optimized via `next/image`)
+    - Author byline (avatar, role, published date, reading time)
+    - Article body (sanitized HTML)
+    - CTA button
+  - Metadata via `/api/seo/articles/:id`
+
+---
+
+## 🛠️ Setup & Run
+
+1. Clone repo
+
+   ```bash
+   git clone <your-repo-url>
+   cd techxot-bff
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. Run dev server
+
+   ```bash
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000 npm run dev
+   ```
+
+4. Open app
+   ```
+   http://localhost:3000/uptick
+   ```
+
+---
+
+## 📖 Example Requests
+
+```bash
+# List articles
+curl http://localhost:3000/api/articles
+
+# Filter by topic
+curl "http://localhost:3000/api/articles?topic=tp-risk"
+
+# Single article
+curl http://localhost:3000/api/articles/art-001
+
+# SEO metadata
+curl http://localhost:3000/api/seo/articles/art-001
+
+# Search
+curl "http://localhost:3000/api/search?q=tokenization"
+```
+
+---
+
+## ✅ Acceptance Checks
+
+- `GET /api/articles` → returns 2 items sorted by `publishedAt` desc
+- `GET /api/articles?topic=tp-risk` → returns both sample articles
+- `GET /api/articles/art-001` → full article with expanded author
+- `GET /api/search?q=tokenization` → tokenization article
+- `/uptick/article/art-001` → renders article page with SEO tags
+
+---
+
+## 📌 Decisions & Tradeoffs
+
+- Repo layer in `/lib/bff` → handles filtering, pagination, joins → keeps API routes clean.
+- **SEO** handled by dedicated BFF route → decoupled from article response.
+- **Sanitization** via `sanitize-html` to prevent XSS.
+- **Caching** → basic `Cache-Control` headers for list/detail.
+- **UI** minimal with Tailwind, responsive grid.
+- **Zod** used for schema validation, can be extended.
+- **Pagination** → server links for simplicity.
+
+---
+
+## 📌 Pending / Optional
+
+- Storybook stories for `ArticleCard` & `ArticleByline`
+- Stronger query param validation via Zod
+- Sitemap endpoint (`/api/seo/articles`) for sitemap.xml generation
+- Rich sanitization rules for embeds/iframes
+
+---

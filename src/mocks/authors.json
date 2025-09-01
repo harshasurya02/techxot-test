@@ -1,0 +1,16 @@
+[
+  {
+    "id": "auth-anna",
+    "name": "Anna Patel",
+    "role": "Payments Strategist",
+    "avatar": "/images/authors/anna.jpg",
+    "bio": "Advises global merchants on RTP and cross-border expansion."
+  },
+  {
+    "id": "auth-sanjay",
+    "name": "Sanjay Rao",
+    "role": "Security Architect",
+    "avatar": "/images/authors/sanjay.jpg",
+    "bio": "Focus on tokenization and PCI-DSS."
+  }
+]

@@ -1,4 +1,4 @@
-// /app/api/authors/route.ts
+
 import { listAuthors } from "@/lib/bff/authors";
 
 export async function GET() {

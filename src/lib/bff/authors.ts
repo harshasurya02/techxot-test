@@ -1,4 +1,4 @@
-// /lib/bff/authors.ts
+
 import fs from "fs/promises";
 import path from "path";
 import { Author } from "../models/article";

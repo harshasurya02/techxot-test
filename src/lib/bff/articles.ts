@@ -1,4 +1,4 @@
-// /lib/bff/articles.ts
+
 import fs from "fs/promises";
 import path from "path";
 import { z } from "zod";

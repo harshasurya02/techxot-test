@@ -1,7 +1,8 @@
-// /app/uptick/page.tsx
+
 import React from "react";
 import ArticleCard from "@/components/ArticleCard";
 import ArticleListFilters from "@/components/ArticleListFilters";
+import Link from "next/link";
 // import ArticleListFilters from "@/components/ArticleListFilters";
 
 type SearchParams = {
@@ -63,7 +64,7 @@ export default async function UptickListPage({
       {/* Pagination */}
       <div className="flex justify-center mt-8 gap-2">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-          <a
+          <Link
             key={p}
             href={`?topic=${topic}&q=${q}&page=${p}`}
             className={`px-3 py-1 border rounded ${
@@ -71,7 +72,7 @@ export default async function UptickListPage({
             }`}
           >
             {p}
-          </a>
+          </Link>
         ))}
       </div>
     </main>

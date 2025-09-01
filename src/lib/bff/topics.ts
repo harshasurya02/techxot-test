@@ -1,4 +1,3 @@
-// /lib/bff/topics.ts
 import fs from "fs/promises";
 import path from "path";
 import { Topic } from "../models/article";

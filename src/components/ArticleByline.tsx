@@ -1,4 +1,4 @@
-// /components/ArticleByline.tsx
+
 import React from "react";
 
 type Props = {

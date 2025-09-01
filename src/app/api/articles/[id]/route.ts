@@ -1,4 +1,4 @@
-// /app/api/articles/[id]/route.ts
+
 import { NextResponse } from "next/server";
 import { getArticleById } from "@/lib/bff/articles";
 

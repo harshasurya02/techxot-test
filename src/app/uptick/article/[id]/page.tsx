@@ -1,4 +1,4 @@
-// /app/uptick/article/[id]/page.tsx
+
 import React from "react";
 import ArticleByline from "@/components/ArticleByline";
 // import { notFound } from "next/navigation";

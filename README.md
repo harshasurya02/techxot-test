@@ -115,7 +115,7 @@ It provides clean API routes backed by mock data, a minimal UI to render article
   - Fetches from `/api/articles/:id`
   - Renders:
     - Title
-    - Hero image (optimized via `next/image`)
+    - Hero image
     - Author byline (avatar, role, published date, reading time)
     - Article body (sanitized HTML)
     - CTA button
@@ -128,7 +128,7 @@ It provides clean API routes backed by mock data, a minimal UI to render article
 1. Clone repo
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/harshasurya02/techxot-test.git
    cd techxot-bff
    ```
 
@@ -141,12 +141,12 @@ It provides clean API routes backed by mock data, a minimal UI to render article
 3. Run dev server
 
    ```bash
-   NEXT_PUBLIC_BASE_URL=http://localhost:3000 npm run dev
+   npm run dev
    ```
 
 4. Open app
    ```
-   http://localhost:3000/uptick
+   http://localhost:3000/
    ```
 
 ---
@@ -200,5 +200,6 @@ curl "http://localhost:3000/api/search?q=tokenization"
 - Stronger query param validation via Zod
 - Sitemap endpoint (`/api/seo/articles`) for sitemap.xml generation
 - Rich sanitization rules for embeds/iframes
+- SSG for all articles on build
 
 ---

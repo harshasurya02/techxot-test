@@ -1,4 +1,3 @@
-// /lib/models/article.ts
 import { z } from "zod";
 
 export const CTA = z.object({

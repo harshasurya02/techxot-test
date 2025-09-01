@@ -108,7 +108,7 @@ It provides clean API routes backed by mock data, a minimal UI to render article
   - Server component fetches `/api/articles`
   - Filters (client component):
     - Topic dropdown → updates instantly
-    - Search input → debounced (500ms)
+    - Search input → debounced (300ms)
   - Pagination (server links)
 
 - **Detail page** (`/uptick/article/[id]`)

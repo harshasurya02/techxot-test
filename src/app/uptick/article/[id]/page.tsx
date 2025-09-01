@@ -1,8 +1,8 @@
-
 import React from "react";
 import ArticleByline from "@/components/ArticleByline";
 // import { notFound } from "next/navigation";
 import sanitizeHtml from "sanitize-html";
+import { notFound } from "next/navigation";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -25,8 +25,8 @@ export default async function ArticlePage({ params }: Params) {
   const res = await fetch(`${base}/api/articles/${id}`, { cache: "no-store" });
 
   if (res.status === 404) {
-    // notFound();
-    return <div className="p-6">Article not found.</div>;
+    notFound();
+    // return <div className="p-6">Article not found.</div>;
   }
 
   if (!res.ok) {
